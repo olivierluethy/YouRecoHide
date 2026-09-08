@@ -488,35 +488,39 @@ dialog.addEventListener("cancel", (e) => {
 // ---------- Prompt + date helpers ----------
 
 function generatePrompt(goalText, rangeValue) {
-  let prompt = "";
+  const value = Number(rangeValue) || 0;
+  // Quote multi-word topics so YouTube keeps the phrase together.
+  const t = goalText.trim();
+  const topic = /\s/.test(t) ? `"${t}"` : t;
 
-  if (rangeValue >= 0 && rangeValue <= 25) {
-    const beginnerPrompts = [
-      `${goalText} for absolute beginners`,
-      `${goalText} tutorial for dummies`,
-      `Easiest way to learn ${goalText}`,
-      `${goalText} - The complete beginner's guide`,
-      `${goalText} step-by-step guide`,
+  // Bands match the UI slider labels (Beginner ≤33, Comfortable ≤66, Pro).
+  let pool;
+  if (value <= 33) {
+    pool = [
+      `${topic} tutorial for beginners`,
+      `${topic} explained step by step`,
+      `Learn ${topic} from scratch`,
+      `${topic} complete beginner's guide`,
+      `${topic} basics tutorial`,
     ];
-    prompt = beginnerPrompts[Math.floor(Math.random() * beginnerPrompts.length)];
-  } else if (rangeValue > 25 && rangeValue <= 75) {
-    const advancedPrompts = [
-      `${goalText} advanced concepts`,
-      `How to master ${goalText}`,
-      `${goalText} in-depth tutorial`,
-      `${goalText} advanced techniques`,
+  } else if (value <= 66) {
+    pool = [
+      `${topic} full tutorial`,
+      `${topic} intermediate guide`,
+      `How to get better at ${topic}`,
+      `${topic} techniques explained`,
+      `${topic} practical course`,
     ];
-    prompt = advancedPrompts[Math.floor(Math.random() * advancedPrompts.length)];
-  } else if (rangeValue > 75 && rangeValue <= 100) {
-    const proPrompts = [
-      `${goalText} for professionals`,
-      `${goalText} like a pro`,
-      `${goalText} challenges`,
+  } else {
+    pool = [
+      `Advanced ${topic} techniques`,
+      `${topic} masterclass`,
+      `${topic} pro tips and workflow`,
+      `${topic} deep dive`,
     ];
-    prompt = proPrompts[Math.floor(Math.random() * proPrompts.length)];
   }
 
-  return prompt;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 function formatDateForGoalWithYearAndTime() {

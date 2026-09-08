@@ -59,19 +59,37 @@ function searchVideos(goals) {
         Promise.all(
           changedGoals.map((goal) => {
             const prompt = goal.prompt || goal.text;
+            const value = Number(goal.value) || 50;
 
             console.log("Der Text für die API-Anfrage lautet: " + prompt);
 
             const apiKey = "__REDACTED_GOOGLE_KEY__";
-            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
-              prompt
-            )}&type=video&key=${apiKey}`;
+
+            // Beginner & Comfortable get digestible medium clips (4–20 min);
+            // Pro learners get long-form deep dives (>20 min). Both exclude
+            // Shorts server-side.
+            const videoDuration = value <= 66 ? "medium" : "long";
+            const relevanceLanguage = (navigator.language || "en").slice(0, 2);
+
+            const params = new URLSearchParams({
+              part: "snippet",
+              q: prompt,
+              type: "video",
+              order: "relevance",
+              maxResults: "10",
+              videoEmbeddable: "true",
+              safeSearch: "moderate",
+              videoDuration: videoDuration,
+              relevanceLanguage: relevanceLanguage,
+              key: apiKey,
+            });
+            const url = `https://www.googleapis.com/youtube/v3/search?${params.toString()}`;
 
             return fetch(url)
               .then((response) => response.json())
               .then((data) => {
                 const shortsRegex = /#?short/i;
-                const videos = data.items
+                const videos = (data.items || [])
                   .map((item) => ({
                     videoId: item.id.videoId,
                     title: item.snippet.title,
