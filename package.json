@@ -1,0 +1,18 @@
+{
+  "name": "youtube-time-manager-55b0920d41550e4941a9cbd33469df3fdd065e0d",
+  "version": "1.0.0",
+  "description": "<!-- PROJECT LOGO -->",
+  "main": "background.js",
+  "scripts": {
+    "build:css": "tailwindcss -i pages/build/goals-input.css -o pages/goals.css --minify",
+    "watch:css": "tailwindcss -i pages/build/goals-input.css -o pages/goals.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

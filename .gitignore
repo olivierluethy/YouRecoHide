@@ -1,0 +1,11 @@
+# Dependencies (dev-only: Tailwind build toolchain)
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+
+# Local env
+.env
+.env.*

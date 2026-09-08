@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+/* Only scan the goals page + its script for utility classes */
+@source "../goals.html";
+@source "../goals.js";
+
+/* ---------- Design tokens (The Prism) ---------- */
+@theme {
+  --color-ink: #0b0d12;
+  --color-surface: #14171f;
+  --color-surface2: #1b1f2a;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-text: #eaecf2;
+  --color-muted: #8a90a2;
+
+  --color-violet: #8b5cf6;
+  --color-cyan: #22d3ee;
+  --color-emerald: #34d399;
+  --color-amber: #fbbf24;
+  --color-rose: #f472b6;
+
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-marquee: marquee 42s linear infinite;
+}
+
+/* ---------- Local Montserrat (bundled, no remote fetch) ---------- */
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 300;
+  font-display: swap;
+  src: url("../assets/css/fonts/Montserrat-Light.woff") format("woff");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/css/fonts/Montserrat-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/css/fonts/Montserrat-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 900;
+  font-display: swap;
+  src: url("../assets/css/fonts/Montserrat-Black.woff") format("woff");
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  :root {
+    --spectral: linear-gradient(
+      90deg,
+      #8b5cf6,
+      #22d3ee,
+      #34d399,
+      #fbbf24,
+      #f472b6
+    );
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-ui);
+    background-color: var(--color-ink);
+    color: var(--color-text);
+    /* Prism light bleeding from the top, quiet toward the base */
+    background-image:
+      radial-gradient(
+        60rem 32rem at 50% -8rem,
+        rgba(139, 92, 246, 0.16),
+        transparent 60%
+      ),
+      radial-gradient(
+        44rem 26rem at 82% 4rem,
+        rgba(34, 211, 238, 0.1),
+        transparent 60%
+      ),
+      radial-gradient(
+        44rem 26rem at 16% 6rem,
+        rgba(244, 114, 182, 0.08),
+        transparent 60%
+      );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* Range input — vendor pseudo-elements can't be expressed as utilities */
+  input[type="range"].prism-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.9) 0 var(--p, 50%),
+        rgba(255, 255, 255, 0.08) var(--p, 50%) 100%
+      ),
+      var(--spectral);
+    background-blend-mode: multiply, normal;
+    cursor: pointer;
+    outline: none;
+  }
+  input[type="range"].prism-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--color-ink);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.25),
+      0 6px 18px rgba(0, 0, 0, 0.55),
+      0 0 22px rgba(34, 211, 238, 0.55);
+    transition: transform 0.15s ease;
+  }
+  input[type="range"].prism-range::-webkit-slider-thumb:active {
+    transform: scale(1.15);
+  }
+  input[type="range"].prism-range:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 3px rgba(34, 211, 238, 0.6),
+      0 6px 18px rgba(0, 0, 0, 0.55);
+  }
+  input[type="range"].prism-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--color-ink);
+  }
+}
+
+/* ---------- Reusable prism utilities (Tailwind layer, not a side stylesheet) ---------- */
+@utility spectral-bg {
+  background-image: var(--spectral);
+}
+@utility spectral-text {
+  background-image: var(--spectral);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Motion ---------- */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Modal: glides down on open, lifts with a soft bounce on close */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-48px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes modal-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(10px) scale(1.01);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) scale(0.95);
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@layer components {
+  /* The <dialog> panel itself carries Tailwind classes in markup;
+     these rules only wire the open/close keyframes to the element state. */
+  dialog#myModal[open] .modal-panel {
+    animation: modal-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  dialog#myModal[open]::backdrop {
+    animation: backdrop-in 0.3s ease both;
+  }
+  dialog#myModal.closing .modal-panel {
+    animation: modal-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  dialog#myModal.closing::backdrop {
+    animation: backdrop-in 0.4s ease reverse both;
+  }
+
+  .row-enter {
+    animation: pop-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+  }
+  dialog#myModal[open] .modal-panel,
+  dialog#myModal.closing .modal-panel,
+  .row-enter {
+    animation: none !important;
+  }
+}
