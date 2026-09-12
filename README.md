@@ -5,7 +5,7 @@
 
 <br />
 <p align="center">
-  <a href="github.com/Olivier_Luethy/TackPad.git">
+  <a href="https://github.com/olivierluethy/YouRecoHide">
     <img src="icon/icon.png" alt="Logo" width="200" height="200">
   </a>
 
@@ -13,16 +13,20 @@
   <h4 align="center">Google Chrome extension to block YouTube's distractive feature - Decide what you want to see</h4>
 
   <p align="center">
+    <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+  </p>
+
+  <p align="center">
     Here I'll explain how I developed the application called YouTube Time Manager
     <br />
-    <a href="github.com/olivierluethy/YouTube Time Manager/blob/master/README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/olivierluethy/YouRecoHide/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/olivierluethy/YouTube Time Manager/">View Demo</a>
+    <a href="https://chromewebstore.google.com/detail/youtube-time-manager/ikhkekdjdjpklbpmgloalpapjgfolheh">View in Chrome Web Store</a>
     ·
-    <a href="https://github.com/olivierluethy/YouTube Time Manager/issues">Report Bug</a>
+    <a href="https://github.com/olivierluethy/YouRecoHide/issues">Report Bug</a>
     ·
-    <a href="https://github.com/olivierluethy/YouTube Time Manager/issues">Request Feature</a>
+    <a href="https://github.com/olivierluethy/YouRecoHide/issues">Request Feature</a>
   </p>
 </p>
 
@@ -162,11 +166,12 @@ Originally I had planned to add a slider to the extension so you could turn it o
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Released under the [MIT License](LICENSE) © 2026 Olivier Lüthy. You're free to use, modify and distribute this
+software, including commercially, as long as the copyright notice and license are included.
 
 ## Author
 
-- **Olivier Lüthy** - _Developer and Maintainer_
+Built by **Olivier Lüthy** — [GitHub](https://github.com/olivierluethy).
 
 ## Name change history
 
